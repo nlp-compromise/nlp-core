@@ -68,6 +68,16 @@ nlp.addConjugations = function(conj) {
     conjugations: conj
   });
 };
+nlp.addPreProcess = function(fn) {
+  w.plugin({
+    preProcess: fn
+  });
+};
+nlp.addPostProcess = function(fn) {
+  w.plugin({
+    postProcess: fn
+  });
+};
 
 //make a weird, half-copy of this method
 nlp.clone = function() {
