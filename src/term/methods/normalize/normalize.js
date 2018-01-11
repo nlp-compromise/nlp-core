@@ -1,5 +1,4 @@
 'use strict';
-const killUnicode = require('./unicode');
 const isAcronym = require('./isAcronym');
 
 //some basic operations on a string to reduce noise
@@ -8,8 +7,6 @@ exports.normalize = function(str) {
   str = str.toLowerCase();
   str = str.trim();
   let original = str;
-  //(very) rough asci transliteration -  bjŏrk -> bjork
-  str = killUnicode(str);
   //hashtags, atmentions
   str = str.replace(/^[#@]/, '');
   //punctuation

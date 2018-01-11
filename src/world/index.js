@@ -79,6 +79,12 @@ World.prototype.plugin = function(obj) {
   if (obj.words) {
     this.addWords(obj.words);
   }
+  if (obj.preProcess) {
+    this.preProcess = obj.preProcess
+  }
+  if (obj.postProcess) {
+    this.postProcess = obj.postProcess
+  }
 };
 
 //export a default world
