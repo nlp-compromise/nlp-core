@@ -6,7 +6,8 @@ test('extend-tagset-flat', function(t) {
     Color: {}
   };
   var lexicon = {
-    'mother of pearl': 'Color'
+    'mother of pearl': 'Color',
+    mother: 'Noun'
   };
   nlp.addTags(tagSet);
   var m = nlp('it is mother of pearl', lexicon).match('#Color+');

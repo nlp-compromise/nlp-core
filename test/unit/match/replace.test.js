@@ -2,19 +2,23 @@ var test = require('tape');
 var nlp = require('../lib/nlp');
 
 test('replace-basic :', function(t) {
-  var m = nlp('the dog played').match('dog').replace('cat').all();
+  var lex = {
+    dog: 'Noun',
+    'pit bull': 'Noun'
+  }
+  var m = nlp('the dog played', lex).match('dog').replace('cat').all();
   t.equal(m.out('text'), 'the cat played', 'dog-cat');
 
-  m = nlp('the dog played').match('the dog').replace('a cat').all();
+  m = nlp('the dog played', lex).match('the dog').replace('a cat').all();
   t.equal(m.out('text'), 'a cat played', 'a-cat');
 
-  m = nlp('the dog played').match('#Noun').replace('snake').all();
+  m = nlp('the dog played', lex).match('#Noun').replace('snake').all();
   t.equal(m.out('text'), 'the snake played', 'snake');
 
-  m = nlp('the pit bull played').match('#Noun+').replace('snake').all();
+  m = nlp('the pit bull played', lex).match('#Noun+').replace('snake').all();
   t.equal(m.out('text'), 'the snake played', 'pit bull');
 
-  m = nlp('the pit bull dog played').match('#Noun+').replace('grey snake').all();
+  m = nlp('the pit bull dog played', lex).match('#Noun+').replace('grey snake').all();
   t.equal(m.out('text'), 'the grey snake played', 'pit bull dog');
 
   t.end();
@@ -28,7 +32,12 @@ test('match-replace :', function(t) {
     ['the boy and the girl', 'the #Noun', 'the house', 'the house and the house'],
     ['the boy and the girl', 'the cat', 'the house', 'the boy and the girl']
   ].forEach(function(a) {
-    var str = nlp(a[0]).replace(a[1], a[2]).out('text');
+    var lex = {
+      dog: 'Noun',
+      boy: 'Noun',
+      girl: 'Noun'
+    }
+    var str = nlp(a[0], lex).replace(a[1], a[2]).out('text');
     var msg = str + ' -- ' + a[3];
     t.equal(str, a[3], msg);
   });

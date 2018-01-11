@@ -2,29 +2,43 @@ var test = require('tape');
 var nlp = require('../lib/nlp');
 
 test('match-capture-group', function(t) {
-  var m = nlp('John eats glue').match('[john]');
+  var lex = {
+    john: 'Person',
+    smith: 'Person',
+    eats: 'Verb',
+    eat: 'Verb',
+    toronto: 'Noun',
+    international: 'Noun',
+    documentary: 'Noun',
+    film: 'Noun',
+    festival: 'Noun',
+  }
+  var m = nlp('John eats glue', lex).match('[john]');
   t.equal(m.out('text'), 'John', 'capture-group-simple');
 
-  m = nlp('John Smith eats glue').match('[#Person+]');
+  m = nlp('John Smith eats glue', lex).match('[#Person+]');
   t.equal(m.out('text'), 'John Smith', 'capture-two');
 
-  m = nlp('ralf eats the glue').match('ralf [#Verb] the');
+  m = nlp('ralf eats the glue', lex).match('ralf [#Verb] the');
   t.equal(m.out('normal'), 'eats', 'simple subset');
 
-  m = nlp('ralf eats the glue').match('[ralf #Verb] the');
+  m = nlp('ralf eats the glue', lex).match('[ralf #Verb] the');
   t.equal(m.out('normal'), 'ralf eats', 'two-word capture');
 
-  m = nlp('i saw ralf eat the glue Mrs. Hoover').match('ralf [#Verb the glue] mrs');
+  m = nlp('i saw ralf eat the glue Mrs. Hoover', lex).match('ralf [#Verb the glue] mrs');
   t.equal(m.out('normal'), 'eat the glue', 'three-word capture');
 
-  m = nlp('saw the Toronto International Documentary Film Festival yesterday').match('saw the? [#Noun+] yesterday');
+  m = nlp('saw the Toronto International Documentary Film Festival yesterday', lex).match('saw the? [#Noun+] yesterday');
   t.equal(m.trim().out('text'), 'Toronto International Documentary Film Festival', 'greedy capture');
 
   t.end();
 });
 
 test('replace-capture-group', function(t) {
-  var m = nlp('John eats glue').replace('john [#Verb]', 'sniffs');
+  var lex = {
+    eats: 'Verb'
+  }
+  var m = nlp('John eats glue', lex).replace('john [#Verb]', 'sniffs');
   t.equal(m.out('text'), 'John sniffs glue', 'capture-group-simple');
   //
   //   m = nlp('John eats glue. john is fun.').replace('[john]', '$1 smith');

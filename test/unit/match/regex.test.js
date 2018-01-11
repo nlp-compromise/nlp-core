@@ -2,7 +2,10 @@ var test = require('tape');
 var nlp = require('../lib/nlp');
 
 test('regex-match:', function(t) {
-  var doc = nlp('it is waaaay cool');
+  var lex = {
+    is: 'Copula'
+  }
+  var doc = nlp('it is waaaay cool', lex);
   var m = doc.match('/aaa/');
   t.equal(m.out('normal'), 'waaaay', 'basic-match');
 
