@@ -3,17 +3,17 @@ var nlp = require('../lib/nlp')
 
 test('custom-tags-persist', function(t) {
   var r = nlp('i am two years older now')
-  var two = r.match('#Value').tag('#FunTag')
+  var two = r.match('two').tag('#FunTag')
   two.replaceWith('never')
   t.equal(two.has('#FunTag'), false, 'custom tag is forgotten')
 
   r = nlp('i am two years older now')
-  two = r.match('#Value').tag('#FunTag')
+  two = r.match('two').tag('#FunTag')
   two.replaceWith('three', true)
   t.equal(two.has('#FunTag'), true, 'custom tag is kept')
 
   // r = nlp('i am two years older now')
-  // two = r.match('#Value').tag('#FunTag')
+  // two = r.match('two').tag('#FunTag')
   // two.toUpperCase()
   // two.values().toNumber()
   // t.equal(two.has('#FunTag'), true, 'custom tag stays over transformations')

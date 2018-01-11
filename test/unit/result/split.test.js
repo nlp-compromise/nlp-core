@@ -6,7 +6,7 @@ test('splitAfter', function(t) {
   [
     ['doug and nancy', 'and', ['doug and', 'nancy']],
     ['doug and also nancy', 'and also', ['doug and also', 'nancy']],
-    ['doug and definetly nancy', 'and #Adverb', ['doug and definetly', 'nancy']],
+    ['doug and definetly nancy', 'and definetly', ['doug and definetly', 'nancy']],
     ['maybe doug but possibly nancy', 'but', ['maybe doug but', 'possibly nancy']],
 
     ['a x b x c', 'x', ['a x', 'b x', 'c']],
@@ -17,7 +17,7 @@ test('splitAfter', function(t) {
     ['a x b c x', 'x', ['a x', 'b c x']],
     ['x x a b c', 'x', ['x', 'x', 'a b c']],
 
-    ['john, paul, george, ringo', '#Comma', ['john', 'paul', 'george', 'ringo']],
+    ['john, paul, george, ringo', '.', ['john', 'paul', 'george', 'ringo']],
     ['doug is really nice', 'is', ['doug is', 'really nice']]
   ].forEach(function(a) {
     var want = a[2];
@@ -31,7 +31,7 @@ test('splitBefore', function(t) {
   [
     ['doug and nancy', 'and', ['doug', 'and nancy']],
     ['doug and also nancy', 'and also', ['doug', 'and also nancy']],
-    ['doug and definetly nancy', 'and #Adverb', ['doug', 'and definetly nancy']],
+    ['doug and definetly nancy', 'and definetly', ['doug', 'and definetly nancy']],
     ['maybe doug but possibly nancy', 'but', ['maybe doug', 'but possibly nancy']],
     ['doug is really nice', 'is', ['doug', 'is really nice']],
 
@@ -52,7 +52,7 @@ test('splitOn', function(t) {
   [
     ['doug and nancy', 'and', ['doug', 'and', 'nancy']],
     ['doug and also nancy', 'and also', ['doug', 'and also', 'nancy']],
-    ['doug and definetly nancy', 'and #Adverb', ['doug', 'and definetly', 'nancy']],
+    ['doug and definetly nancy', 'and definetly', ['doug', 'and definetly', 'nancy']],
     ['maybe doug but possibly nancy', 'but', ['maybe doug', 'but', 'possibly nancy']],
     ['doug is really nice', 'is', ['doug', 'is', 'really nice']],
 

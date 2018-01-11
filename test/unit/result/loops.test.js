@@ -5,7 +5,7 @@ test('js-loop-map', function(t) {
   var text = 'oh hello. please turn on the lights and then take out the garbage too. After that, play some music.';
   var doc = nlp(text);
   var arr = doc.map(m => {
-    return m.terms(0).out('normal');
+    return m.firstTerm().out('normal');
   });
   t.equal(arr.length, 3, 'right-size');
   t.equal(arr[0], 'oh', 'oh-first');
@@ -18,7 +18,7 @@ test('js-loop-reduce', function(t) {
   var text = 'oh hello. please turn on the lights and then take out the garbage too. After that, play some music.';
   var doc = nlp(text);
   var list = doc.reduce((arr, m) => {
-    arr.push(m.terms(0).out('normal'));
+    arr.push(m.firstTerm().out('normal'));
     return arr;
   }, []);
   t.equal(list.length, 3, 'right-size');
@@ -27,7 +27,7 @@ test('js-loop-reduce', function(t) {
   t.equal(list[2], 'after', 'after-first');
 
   var txt = doc.reduce((str, m) => {
-    str += m.terms(0).out('normal');
+    str += m.firstTerm().out('normal');
     return str;
   }, '');
   t.equal(txt, 'ohpleaseafter', 'reduce-to-a-string');
