@@ -12,7 +12,10 @@ test('==Match ==', function(T) {
       ['quick', '(fun|nice|quick|cool)', true],
       ['quick', '(fun|nice|good)', false]
     ].forEach(function(a) {
-      var m = nlp(a[0]).match(a[1]);
+      var lex = {
+        quick: 'Adjective'
+      }
+      var m = nlp(a[0], lex).match(a[1]);
       var msg = a[0] + ' matches ' + a[1] + ' ' + a[2];
       t.equal(m.found, a[2], msg);
     });
@@ -69,7 +72,11 @@ test('==Match ==', function(T) {
     //bugs
     // [`really remind me to buy`, '#Adverb? #Infinitive (me|us) (to|for)', `really remind me to`],
     ].forEach(function(a) {
-      var m = nlp(a[0]).match(a[1]);
+      var lex = {
+        quickly: 'Adverb',
+        dog: 'Noun'
+      }
+      var m = nlp(a[0], lex).match(a[1]);
       if (!m.found) {
         t.equal(a[2], '', 'no-match: ' + a[0] + ' - -' + a[1]);
       } else {

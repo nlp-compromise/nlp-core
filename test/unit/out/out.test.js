@@ -11,16 +11,19 @@ test('topk:', function(t) {
   // t.equal(arr[1].normal, 'was', 'one was count');
   // t.equal(arr[1].count, 1, 'one was count');
 
-  arr = nlp('we\'re cool. they are fun').terms().out('freq');
-  t.equal(arr[0].normal, 'are', 'contraction- are');
-  t.equal(arr[0].count, 2, 'are combined');
+  // arr = nlp('we\'re cool. they are fun').terms().out('freq');
+  // t.equal(arr[0].normal, 'are', 'contraction- are');
+  // t.equal(arr[0].count, 2, 'are combined');
 
   t.end();
 });
 
 test('out-tags:', function(t) {
+  var lex = {
+    'texas rangers': 'SportsTeam'
+  }
   var str = 'texas rangers are a baseball team';
-  var r = nlp(str);
+  var r = nlp(str, lex);
   var arr = r.out('tags');
   t.equal(arr.length, 6, '6 terms');
   t.equal(arr[0].normal, 'texas', 'texas #1');
